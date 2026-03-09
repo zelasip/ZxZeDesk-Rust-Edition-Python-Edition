@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+  <title>RemoteConnect Mobile</title>
+  <!-- BEGIN: Scripts and Stylesheets -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              light: '#f97316',
+              DEFAULT: '#ec5b13',
+              dark: '#c2410c',
+            },
+            surface: {
+              light: '#f8f6f6',
+              dark: '#221610',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style data-purpose="custom-animations">
+    @keyframes pulse-soft {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.7;
+      }
+    }
+
+    .animate-pulse-soft {
+      animation: pulse-soft 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+
+    /* Hide scrollbar for clean mobile look */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+  <!-- END: Scripts and Stylesheets -->
+</head>
+
+<body
+  class="bg-surface-light dark:bg-surface-dark text-slate-900 dark:text-slate-100 font-sans transition-colors duration-300">
+  <!-- BEGIN: Main Layout -->
+  <div id="main-layout" class="flex flex-col h-screen max-w-md mx-auto relative overflow-hidden">
+    <!-- BEGIN: Top Navigation Bar -->
+    <header
+      class="flex items-center justify-between px-6 py-4 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800"
+      data-purpose="app-header">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 bg-brand rounded-xl flex items-center justify-center shadow-lg shadow-brand/20">
+          <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+              stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+          </svg>
+        </div>
+        <h1 class="text-xl font-bold tracking-tight">RemoteConnect</h1>
+      </div>
+      <button class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+        data-purpose="toggle-dark-mode" id="theme-toggle">
+        <svg class="h-6 w-6 hidden dark:block" fill="none" id="sun-icon" stroke="currentColor" viewbox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"
+            stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+        </svg>
+        <svg class="h-6 w-6 block dark:hidden" fill="none" id="moon-icon" stroke="currentColor" viewbox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg">
+          <path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+            stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+        </svg>
+      </button>
+    </header>
+    <!-- END: Top Navigation Bar -->
+    <!-- BEGIN: Content Area -->
+    <main id="remote-view" class="flex-1 overflow-y-auto no-scrollbar px-6 py-6 space-y-8">
+      <!-- BEGIN: Your Address Section -->
+      <section data-purpose="your-address-display">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-100 dark:border-slate-700">
+          <h2 class="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3">Your
+            Address</h2>
+          <div class="flex items-center justify-between">
+            <span id="local-id-display"
+              class="text-3xl font-mono font-bold tracking-widest text-brand dark:text-blue-400">...</span>
+            <button aria-label="Copy Address" class="p-2 text-slate-400 hover:text-brand transition-colors">
+              <svg class="h-6 w-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+                  stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+              </svg>
+            </button>
+          </div>
+          <div class="grid grid-cols-2 gap-4 mt-4 pt-4 border-t border-slate-100 dark:border-slate-700">
+            <div>
+              <p class="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-semibold tracking-wider mb-1">
+                Password</p>
+              <div class="flex items-center gap-2">
+                <span id="local-password-display"
+                  class="text-lg font-mono font-bold text-slate-800 dark:text-slate-200 tracking-wider">...</span>
+                <button class="text-slate-400 hover:text-brand transition-colors">
+                  <svg class="h-4 w-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-width="2"></path>
+                    <path
+                      d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                      stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div>
+              <p class="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-semibold tracking-wider mb-1">Port
+                / Host</p>
+              <div class="flex items-center gap-2">
+                <span id="public-address-display"
+                  class="text-sm font-mono font-bold text-slate-800 dark:text-slate-200">Starting tunnel...</span>
+              </div>
+            </div>
+          </div>
+          <div class="mt-4 flex items-center gap-2">
+            <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse-soft"></div>
+            <span class="text-xs text-slate-500">Ready for connection</span>
+          </div>
+        </div>
+      </section>
+      <!-- END: Your Address Section -->
+      <!-- BEGIN: Remote Connection Input -->
+      <section data-purpose="remote-address-input">
+        <h2 class="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-4">Remote
+          Address</h2>
+        <div class="relative flex flex-col gap-2">
+          <input
+            class="w-full bg-white dark:bg-slate-800 border-none rounded-2xl py-4 pl-6 pr-16 shadow-sm focus:ring-2 focus:ring-brand transition-all text-lg font-mono dark:placeholder-slate-600"
+            id="remote-id-input" placeholder="Enter remote ID..." type="text" />
+          <div class="flex gap-2">
+            <input
+              class="flex-1 bg-white dark:bg-slate-800 border-none rounded-2xl py-4 pl-6 shadow-sm focus:ring-2 focus:ring-brand transition-all text-lg font-mono dark:placeholder-slate-600"
+              id="remote-port-input" placeholder="Port" type="number" value="23123" />
+            <input
+              class="flex-[2] bg-white dark:bg-slate-800 border-none rounded-2xl py-4 pl-6 shadow-sm focus:ring-2 focus:ring-brand transition-all text-lg font-mono dark:placeholder-slate-600"
+              id="remote-password-input" placeholder="Password" type="password" />
+          </div>
+          <button id="connect-btn" aria-label="Connect"
+            class="bg-brand hover:bg-brand-dark text-white py-4 rounded-2xl shadow-md transition-all active:scale-95 flex items-center justify-center font-bold">
+            CONNECT
+          </button>
+        </div>
+        <!-- BEGIN: Quick Action Buttons -->
+        <div class="grid grid-cols-2 gap-4 mt-4">
+          <button
+            class="flex items-center justify-center gap-2 py-3 px-4 bg-slate-100 dark:bg-slate-800 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors font-medium text-sm">
+            <svg class="h-5 w-5 text-brand" fill="none" stroke="currentColor" viewbox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg">
+              <path d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+            </svg>
+            File Transfer
+          </button>
+          <button
+            class="flex items-center justify-center gap-2 py-3 px-4 bg-slate-100 dark:bg-slate-800 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors font-medium text-sm">
+            <svg class="h-5 w-5 text-brand" fill="none" stroke="currentColor" viewbox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
+                stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+            </svg>
+            Settings
+          </button>
+        </div>
+        <!-- END: Quick Action Buttons -->
+      </section>
+      <!-- END: Remote Connection Input -->
+      <!-- BEGIN: Recent Sessions -->
+      <section class="flex-1" data-purpose="recent-sessions-list">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Recent Sessions
+          </h2>
+          <button class="text-xs text-brand font-bold">Clear All</button>
+        </div>
+        <div class="space-y-3 pb-20">
+          <!-- Session Item 1 -->
+          <div
+            class="flex items-center gap-4 p-4 bg-white dark:bg-slate-800 rounded-2xl border border-slate-50 dark:border-slate-700 shadow-sm hover:shadow-md transition-shadow active:bg-slate-50 dark:active:bg-slate-700 cursor-pointer">
+            <div
+              class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center text-brand">
+              <svg class="h-6 w-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                  stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+              </svg>
+            </div>
+            <div class="flex-1 overflow-hidden">
+              <p class="font-bold truncate">Work PC - Office 1</p>
+              <p class="text-xs text-slate-500 font-mono">229 001 543</p>
+            </div>
+            <div class="text-right">
+              <p class="text-[10px] text-slate-400">2h ago</p>
+            </div>
+          </div>
+          <!-- Session Item 2 -->
+          <div
+            class="flex items-center gap-4 p-4 bg-white dark:bg-slate-800 rounded-2xl border border-slate-50 dark:border-slate-700 shadow-sm hover:shadow-md transition-shadow active:bg-slate-50 dark:active:bg-slate-700 cursor-pointer">
+            <div
+              class="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-full flex items-center justify-center text-purple-600">
+              <svg class="h-6 w-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"
+                  stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+              </svg>
+            </div>
+            <div class="flex-1 overflow-hidden">
+              <p class="font-bold truncate">Home Laptop</p>
+              <p class="text-xs text-slate-500 font-mono">112 884 002</p>
+            </div>
+            <div class="text-right">
+              <p class="text-[10px] text-slate-400">Yesterday</p>
+            </div>
+          </div>
+          <!-- Session Item 3 -->
+          <div
+            class="flex items-center gap-4 p-4 bg-white dark:bg-slate-800 rounded-2xl border border-slate-50 dark:border-slate-700 shadow-sm hover:shadow-md transition-shadow active:bg-slate-50 dark:active:bg-slate-700 cursor-pointer">
+            <div
+              class="w-12 h-12 bg-amber-100 dark:bg-amber-900/30 rounded-full flex items-center justify-center text-amber-600">
+              <svg class="h-6 w-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-7 10V12"
+                  stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+              </svg>
+            </div>
+            <div class="flex-1 overflow-hidden">
+              <p class="font-bold truncate">Media Server</p>
+              <p class="text-xs text-slate-500 font-mono">455 009 118</p>
+            </div>
+            <div class="text-right">
+              <p class="text-[10px] text-slate-400">Oct 12</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- END: Recent Sessions -->
+    </main>
+
+    <!-- BEGIN: Contacts View -->
+    <main id="contacts-view" class="hidden flex-1 overflow-y-auto no-scrollbar px-6 py-6 space-y-8">
+      <div class="flex items-center justify-between">
+        <h2 class="text-xl font-bold">Contacts</h2>
+        <button class="bg-brand text-white p-2 rounded-lg"><svg class="w-5 h-5" fill="none" stroke="currentColor"
+            viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+          </svg></button>
+      </div>
+      <div class="space-y-4">
+        <div class="p-4 bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700">
+          <p class="text-sm font-semibold text-slate-500 uppercase">Computers</p>
+          <div class="mt-3 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 bg-brand/10 rounded-lg flex items-center justify-center text-brand">V</div>
+              <div>
+                <p class="font-bold">Main Office PC</p>
+                <p class="text-xs text-slate-500">Online</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- BEGIN: History View -->
+    <main id="history-view" class="hidden flex-1 overflow-y-auto no-scrollbar px-6 py-6 space-y-8">
+      <h2 class="text-xl font-bold">Session History</h2>
+      <div class="space-y-4">
+        <div class="p-4 bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700">
+          <p class="font-bold">Office-Desktop-01</p>
+          <p class="text-xs text-slate-500">May 24, 2024 • Success</p>
+        </div>
+      </div>
+    </main>
+
+    <!-- BEGIN: Settings View -->
+    <main id="settings-view" class="hidden flex-1 overflow-y-auto no-scrollbar px-6 py-6 space-y-8">
+      <h2 class="text-xl font-bold">Settings</h2>
+      <div class="space-y-6">
+        <section>
+          <h3 class="text-xs font-bold uppercase text-brand mb-2">My Credentials</h3>
+          <div class="bg-white dark:bg-slate-800 rounded-2xl p-4 space-y-3">
+            <div class="flex justify-between">
+              <span class="text-sm text-slate-500">My ID</span>
+              <span class="font-mono font-bold local-id-val">...</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-sm text-slate-500">My Password</span>
+              <span class="font-mono font-bold local-pass-val">...</span>
+            </div>
+          </div>
+        </section>
+        <button class="w-full py-3 bg-brand/10 text-brand font-bold rounded-xl border border-brand/20">Log Out</button>
+      </div>
+    </main>
+    <!-- END: Content Area -->
+    <!-- BEGIN: Bottom Navigation Bar -->
+    <nav
+      class="absolute bottom-0 left-0 right-0 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-t border-slate-200 dark:border-slate-800 px-8 py-3 pb-8"
+      data-purpose="bottom-nav">
+      <ul class="flex justify-between items-center">
+        <li>
+          <a class="flex flex-col items-center gap-1 text-brand nav-link active" href="#"
+            onclick="switchView('remote-view', this)">
+            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+            </svg>
+            <span class="text-[10px] font-bold">Remote</span>
+          </a>
+        </li>
+        <li>
+          <a class="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500 nav-link" href="#"
+            onclick="switchView('contacts-view', this)">
+            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
+                stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+            </svg>
+            <span class="text-[10px]">Contacts</span>
+          </a>
+        </li>
+        <li>
+          <a class="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500 nav-link" href="#"
+            onclick="switchView('history-view', this)">
+            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+            </svg>
+            <span class="text-[10px]">History</span>
+          </a>
+        </li>
+        <li>
+          <a class="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500 nav-link" href="#"
+            onclick="switchView('settings-view', this)">
+            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+              <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round"
+                stroke-width="2"></path>
+            </svg>
+            <span class="text-[10px]">Settings</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <!-- END: Bottom Navigation Bar -->
+  </div>
+  <!-- END: Main Layout -->
+
+  <!-- BEGIN: Viewer Container -->
+  <div id="viewer-container" class="hidden absolute inset-0 bg-black z-50 flex items-center justify-center">
+    <img id="video-stream" class="max-w-full max-h-full object-contain pointer-events-none select-none" src=""
+      alt="Remote Stream" draggable="false" />
+    <button id="disconnect-btn"
+      class="absolute top-4 left-4 bg-red-600/80 hover:bg-red-600 text-white rounded-full p-2 backdrop-blur-sm transition-all shadow-lg">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </button>
+  </div>
+  <!-- END: Viewer Container -->
+  <script data-purpose="event-handlers">
+    // Logic for toggling dark mode
+    const themeToggle = document.getElementById('theme-toggle');
+    const html = document.documentElement;
+
+    themeToggle.addEventListener('click', () => {
+      html.classList.toggle('dark');
+    });
+
+    // Auto-focus input simulation for a real app feel
+    const input = document.getElementById('remote-id-input');
+    input.addEventListener('focus', () => {
+      input.classList.add('ring-2', 'ring-brand');
+    });
+
+    const { invoke } = window.__TAURI__.core;
+    const { listen } = window.__TAURI__.event;
+
+    function switchView(viewId, el) {
+      // Hide all content areas
+      ['remote-view', 'contacts-view', 'history-view', 'settings-view'].forEach(id => {
+        const view = document.getElementById(id);
+        if (view) view.classList.add('hidden');
+      });
+      // Show selected
+      const target = document.getElementById(viewId);
+      if (target) target.classList.remove('hidden');
+
+      // Update nav styles
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('text-brand', 'active');
+        link.classList.add('text-slate-400');
+      });
+
+      if (el) {
+        el.classList.add('text-brand', 'active');
+        el.classList.remove('text-slate-400');
+      }
+    }
+
+    // Fetch initial data
+    async function loadLocalInfo() {
+      try {
+        const info = await invoke('get_local_info');
+        const formattedId = info.id.match(/.{1,3}/g).join(" ");
+
+        // Update all placeholders
+        document.querySelectorAll('.local-id-val').forEach(el => el.innerText = formattedId);
+        document.querySelectorAll('.local-pass-val').forEach(el => el.innerText = info.password);
+
+        // Legacy IDs for compatibility
+        if (document.getElementById('local-id-display'))
+          document.getElementById('local-id-display').innerText = formattedId;
+        if (document.getElementById('local-password-display'))
+          document.getElementById('local-password-display').innerText = info.password;
+
+      } catch (e) {
+        console.error("Failed to load local info:", e);
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", async () => {
+      loadLocalInfo();
+
+      // Fetch initial tunnel address if already ready
+      try {
+        const initialAddr = await invoke('get_tunnel_address');
+        if (initialAddr && initialAddr !== "Starting tunnel...") {
+          document.getElementById('public-address-display').innerText = initialAddr;
+        }
+      } catch (e) {
+        console.error("Failed to fetch initial tunnel address:", e);
+      }
+
+      // Listen for tunnel-ready updates
+      await listen('tunnel-ready', (event) => {
+        const addr = event.payload;
+        document.getElementById('public-address-display').innerText = addr;
+      });
+
+      document.getElementById('disconnect-btn').addEventListener('click', () => {
+        document.getElementById('viewer-container').classList.add('hidden');
+        document.getElementById('main-layout').classList.remove('hidden');
+        // TODO: Call Rust to actual disconnect TCP
+      });
+
+      // Status handling
+      let currentStatus = "";
+      await listen('connection-status', (event) => {
+        const status = event.payload;
+        console.log("Status:", status);
+        const btn = document.getElementById('connect-btn');
+
+        if (status === "Connecting") {
+          btn.innerText = "CONNECTING...";
+          btn.disabled = true;
+          btn.style.opacity = '0.7';
+        } else if (status === "Success") {
+          btn.innerText = "CONNECT";
+          btn.disabled = false;
+          btn.style.opacity = '1';
+          // Switch UI to Viewer
+          document.getElementById('main-layout').classList.add('hidden');
+          document.getElementById('viewer-container').classList.remove('hidden');
+        } else if (status === "Failed") {
+          btn.innerText = "CONNECT";
+          btn.disabled = false;
+          btn.style.opacity = '1';
+          alert("Connection failed! Please check ID, Port and Password.");
+        }
+      });
+
+      document.getElementById('connect-btn').addEventListener('click', async () => {
+        let remoteId = document.getElementById('remote-id-input').value;
+        const port = document.getElementById('remote-port-input').value;
+        const password = document.getElementById('remote-password-input').value;
+
+        // Clean ID
+        remoteId = remoteId.replace(/\s/g, '');
+
+        if (remoteId && port && password) {
+          try {
+            await invoke('start_connection', { remoteId, port: parseInt(port), password });
+          } catch (e) {
+            alert("Error: " + e);
+          }
+        } else {
+          alert("Please enter ID and Password");
+        }
+      });
+
+      // Frame handling
+      let lastUrl = null;
+      await listen('video-frame', (event) => {
+        const data = event.payload.data; // This is a Uint8Array
+        const blob = new Blob([new Uint8Array(data)], { type: 'image/jpeg' });
+        const url = URL.createObjectURL(blob);
+
+        const streamImg = document.getElementById('video-stream');
+        const oldUrl = lastUrl;
+
+        streamImg.onload = () => {
+          if (oldUrl) URL.revokeObjectURL(oldUrl);
+        };
+
+        streamImg.src = url;
+        lastUrl = url;
+      });
+
+      // --- INPUT HANDLING ---
+      const viewer = document.getElementById('viewer-container');
+      const streamImg = document.getElementById('video-stream');
+
+      function sendInput(type, data) {
+        invoke('handle_input_event', { eventType: type, payload: JSON.stringify(data) }).catch(console.error);
+      }
+
+      viewer.addEventListener('mousedown', (e) => {
+        if (viewer.classList.contains('hidden')) return;
+        const rect = streamImg.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width;
+        const y = (e.clientY - rect.top) / rect.height;
+        if (x >= 0 && x <= 1 && y >= 0 && y <= 1) {
+          sendInput('mouse_down', { x, y, button: e.button });
+        }
+      });
+
+      viewer.addEventListener('mouseup', (e) => {
+        if (viewer.classList.contains('hidden')) return;
+        const rect = streamImg.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width;
+        const y = (e.clientY - rect.top) / rect.height;
+        sendInput('mouse_up', { x, y, button: e.button });
+      });
+
+      viewer.addEventListener('mousemove', (e) => {
+        if (viewer.classList.contains('hidden')) return;
+        const rect = streamImg.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width;
+        const y = (e.clientY - rect.top) / rect.height;
+        if (x >= 0 && x <= 1 && y >= 0 && y <= 1) {
+          sendInput('mouse_move', { x, y });
+        }
+      });
+
+      window.addEventListener('keydown', (e) => {
+        if (viewer.classList.contains('hidden')) return;
+        sendInput('key_down', { key: e.key, code: e.code });
+      });
+
+      window.addEventListener('keyup', (e) => {
+        if (viewer.classList.contains('hidden')) return;
+        sendInput('key_up', { key: e.key, code: e.code });
+      });
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>RemoteConnect - Contacts</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ec5b13",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#221610",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Public Sans', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen flex flex-col bg-background-dark">
+<!-- Header Section -->
+<header class="sticky top-0 z-10 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
+<div class="flex items-center justify-between px-4 h-16">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-3xl">hub</span>
+<h1 class="text-xl font-bold tracking-tight">Contacts</h1>
+</div>
+<button class="bg-primary hover:bg-primary/90 text-white flex items-center justify-center p-2 rounded-lg transition-colors">
+<span class="material-symbols-outlined">person_add</span>
+</button>
+</div>
+<!-- Search Bar Area -->
+<div class="px-4 pb-4">
+<div class="relative group">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-slate-400 group-focus-within:text-primary transition-colors">search</span>
+</div>
+<input class="block w-full pl-10 pr-3 py-2.5 bg-slate-100 dark:bg-slate-800 border-none rounded-xl text-sm placeholder-slate-500 focus:ring-2 focus:ring-primary/50 transition-all" placeholder="Search devices or contacts..." type="text"/>
+</div>
+</div>
+<!-- Filter Tabs -->
+<div class="flex px-4 border-b border-slate-200 dark:border-slate-800 overflow-x-auto no-scrollbar">
+<button class="flex-none px-4 py-3 text-sm font-semibold border-b-2 border-primary text-primary">
+                All Devices
+            </button>
+<button class="flex-none px-4 py-3 text-sm font-semibold border-b-2 border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300">
+                Recent
+            </button>
+<button class="flex-none px-4 py-3 text-sm font-semibold border-b-2 border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300">
+                Favorites
+            </button>
+</div>
+</header>
+<!-- Content Section -->
+<main class="flex-1 overflow-y-auto">
+<div class="p-4 space-y-4">
+<!-- Contact Group: Computers -->
+<div>
+<h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 px-1">Computers</h3>
+<div class="space-y-1">
+<!-- Device Item -->
+<div class="flex items-center justify-between p-3 bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">desktop_windows</span>
+</div>
+<div>
+<h4 class="font-semibold text-sm">Main Office PC</h4>
+<p class="text-xs text-slate-500">Windows 11 • Desktop</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="flex size-2 rounded-full bg-emerald-500"></span>
+<span class="text-xs font-medium text-emerald-500">Online</span>
+</div>
+</div>
+<!-- Device Item -->
+<div class="flex items-center justify-between p-3 bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">laptop_mac</span>
+</div>
+<div>
+<h4 class="font-semibold text-sm">MacBook Pro</h4>
+<p class="text-xs text-slate-500">macOS Sonoma • Laptop</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="flex size-2 rounded-full bg-slate-300 dark:bg-slate-600"></span>
+<span class="text-xs font-medium text-slate-400">Offline</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Contact Group: Entertainment -->
+<div>
+<h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 px-1">Entertainment</h3>
+<div class="space-y-1">
+<!-- Device Item -->
+<div class="flex items-center justify-between p-3 bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">tv</span>
+</div>
+<div>
+<h4 class="font-semibold text-sm">Living Room TV</h4>
+<p class="text-xs text-slate-500">Smart Hub • Connected</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="flex size-2 rounded-full bg-emerald-500"></span>
+<span class="text-xs font-medium text-emerald-500">Online</span>
+</div>
+</div>
+<!-- Device Item -->
+<div class="flex items-center justify-between p-3 bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">speaker_group</span>
+</div>
+<div>
+<h4 class="font-semibold text-sm">Audio System</h4>
+<p class="text-xs text-slate-500">Multi-room • Idle</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="flex size-2 rounded-full bg-amber-500"></span>
+<span class="text-xs font-medium text-amber-500">Away</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Contact Group: Smart Home -->
+<div>
+<h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 px-1">Smart Home</h3>
+<div class="space-y-1">
+<!-- Device Item -->
+<div class="flex items-center justify-between p-3 bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">nest_cam_wired_stand</span>
+</div>
+<div>
+<h4 class="font-semibold text-sm">Security Cam 01</h4>
+<p class="text-xs text-slate-500">Front Door • Streaming</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="flex size-2 rounded-full bg-emerald-500"></span>
+<span class="text-xs font-medium text-emerald-500">Live</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Navigation Bar -->
+<nav class="sticky bottom-0 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 px-4 pb-6 pt-2">
+<div class="flex items-center justify-around max-w-lg mx-auto">
+<a class="flex flex-col items-center gap-1 p-2 text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="text-[10px] font-bold">Home</span>
+</a>
+<a class="flex flex-col items-center gap-1 p-2 text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">devices</span>
+<span class="text-[10px] font-bold">Devices</span>
+</a>
+<a class="flex flex-col items-center gap-1 p-2 text-primary" href="#">
+<span class="material-symbols-outlined fill">group</span>
+<span class="text-[10px] font-bold">Contacts</span>
+</a>
+<a class="flex flex-col items-center gap-1 p-2 text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-[10px] font-bold">Settings</span>
+</a>
+</div>
+</nav>
+</body></html>

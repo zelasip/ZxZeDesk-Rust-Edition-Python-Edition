@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>RemoteConnect Settings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ec5b13",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#221610",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen flex flex-col">
+<!-- Header -->
+<header class="sticky top-0 z-10 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-primary/10 px-4 py-4 flex items-center gap-4">
+<button class="p-2 hover:bg-primary/10 rounded-full transition-colors">
+<span class="material-symbols-outlined text-slate-900 dark:text-slate-100">arrow_back</span>
+</button>
+<h1 class="text-xl font-bold tracking-tight">Settings</h1>
+</header>
+<!-- Content -->
+<main class="flex-1 overflow-y-auto pb-24">
+<!-- User Profile Quick View -->
+<div class="px-4 py-6 flex items-center gap-4 border-b border-primary/5">
+<div class="relative">
+<img alt="Profile" class="w-16 h-16 rounded-full object-cover border-2 border-primary" data-alt="Professional headshot of a smiling man" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxLTzUsgVkv-6vgL-CmyuV4rGaAJ5os5N5DGyLNpFl_2P3jBNyhwt8RRiFClnZn6lNRyzfP-wnebaYH7-nrO4cClbQoPhtIJrZDsLflW8YD3RIGMbeGwa2BJaDn1zWf34IQvTRjiKhIKJ1IlhPCCebC7RsNvVE89PsPVucyuyr5FMe2sHjuZkHQkcQdUteWZf4DfAm3IccDdtwZMGzP_UjeFiNr_-NjCFpvtBywl5E0mWSmIXPl7LG0Jxjo1GxVZ7_HSJpv__cfhk"/>
+<div class="absolute bottom-0 right-0 w-4 h-4 bg-green-500 border-2 border-background-light dark:border-background-dark rounded-full"></div>
+</div>
+<div>
+<h2 class="font-bold text-lg">Alex Chen</h2>
+<p class="text-sm text-slate-500 dark:text-slate-400">Pro Plan Member</p>
+</div>
+<button class="ml-auto text-primary font-semibold text-sm">Edit</button>
+</div>
+<!-- Settings Categories -->
+<div class="space-y-6 pt-4">
+<!-- Account Section -->
+<section>
+<h3 class="px-4 text-xs font-bold uppercase tracking-widest text-primary mb-2">Account</h3>
+<div class="bg-white dark:bg-primary/5 divide-y divide-primary/5">
+<div class="flex items-center justify-between p-4 hover:bg-primary/5 cursor-pointer">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary">person</span>
+<span class="font-medium">Profile Details</span>
+</div>
+<span class="material-symbols-outlined text-slate-400">chevron_right</span>
+</div>
+<div class="flex items-center justify-between p-4 hover:bg-primary/5 cursor-pointer">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary">credit_card</span>
+<span class="font-medium">Subscription &amp; Billing</span>
+</div>
+<span class="material-symbols-outlined text-slate-400">chevron_right</span>
+</div>
+</div>
+</section>
+<!-- Security Section -->
+<section>
+<h3 class="px-4 text-xs font-bold uppercase tracking-widest text-primary mb-2">Security</h3>
+<div class="bg-white dark:bg-primary/5 divide-y divide-primary/5">
+<div class="flex items-center justify-between p-4 hover:bg-primary/5 cursor-pointer">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary">lock</span>
+<span class="font-medium">Change Password</span>
+</div>
+<span class="material-symbols-outlined text-slate-400">chevron_right</span>
+</div>
+<div class="flex items-center justify-between p-4 hover:bg-primary/5 cursor-pointer">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary">verified_user</span>
+<div>
+<p class="font-medium">Two-Factor Auth</p>
+<p class="text-xs text-slate-500">Enabled</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-slate-400">chevron_right</span>
+</div>
+<div class="flex items-center justify-between p-4 hover:bg-primary/5 cursor-pointer">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary">devices</span>
+<span class="font-medium">Authorized Devices</span>
+</div>
+<span class="material-symbols-outlined text-slate-400">chevron_right</span>
+</div>
+<div class="flex flex-col p-4 bg-primary/10 border-t border-primary/10">
+<div class="flex items-center gap-4 mb-1">
+<span class="material-symbols-outlined text-primary text-sm">info</span>
+<span class="text-xs font-semibold uppercase tracking-wider text-primary">Access Credentials</span>
+</div>
+<div class="grid grid-cols-2 gap-2 mt-2">
+<div>
+<p class="text-[10px] text-slate-500 uppercase font-bold">Default Password</p>
+<p class="font-mono text-sm text-primary">A3kD</p>
+</div>
+<div>
+<p class="text-[10px] text-slate-500 uppercase font-bold">Connection Port</p>
+<p class="font-mono text-sm text-primary">bore.pub:23123</p>
+</div>
+</div>
+</div></div>
+</section>
+<!-- Device Preferences Section -->
+<section>
+<h3 class="px-4 text-xs font-bold uppercase tracking-widest text-primary mb-2">Device Preferences</h3>
+<div class="bg-white dark:bg-primary/5 divide-y divide-primary/5">
+<div class="flex items-center justify-between p-4 hover:bg-primary/5 cursor-pointer">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary">display_settings</span>
+<span class="font-medium">Display &amp; Video</span>
+</div>
+<span class="material-symbols-outlined text-slate-400">chevron_right</span>
+</div>
+<div class="flex items-center justify-between p-4 hover:bg-primary/5 cursor-pointer">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary">volume_up</span>
+<span class="font-medium">Audio &amp; Sound</span>
+</div>
+<span class="material-symbols-outlined text-slate-400">chevron_right</span>
+</div>
+<div class="flex items-center justify-between p-4 hover:bg-primary/5 cursor-pointer">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary">notifications</span>
+<span class="font-medium">Notifications</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-xs text-slate-400">Push only</span>
+<span class="material-symbols-outlined text-slate-400">chevron_right</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Logout -->
+<div class="px-4 pt-4">
+<button class="w-full py-3 bg-primary/10 text-primary font-bold rounded-lg border border-primary/20 hover:bg-primary/20 transition-colors">
+                    Log Out
+                </button>
+<p class="text-center text-[10px] text-slate-400 mt-6 pb-4">Version 2.4.1 (Build 8902)</p>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 right-0 bg-background-light dark:bg-background-dark border-t border-primary/10 px-4 pb-6 pt-2 flex items-center justify-around z-20">
+<a class="flex flex-col items-center gap-1 text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="text-[10px] font-medium">Home</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">devices</span>
+<span class="text-[10px] font-medium">Devices</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">monitoring</span>
+<span class="text-[10px] font-medium">Activity</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-primary" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1">settings</span>
+<span class="text-[10px] font-medium">Settings</span>
+</a>
+</nav>
+</body></html>

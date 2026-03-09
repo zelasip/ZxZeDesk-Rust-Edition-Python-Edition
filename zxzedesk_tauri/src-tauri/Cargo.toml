@@ -1,0 +1,32 @@
+[package]
+name = "zxzedesk_tauri"
+version = "0.1.0"
+description = "A Tauri App"
+authors = ["you"]
+edition = "2021"
+
+[lib]
+name = "zxzedesk_tauri_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+tauri-plugin-opener = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tokio = { version = "1.50.0", features = ["full"] }
+bytes = "1.11.1"
+byteorder = "1.5.0"
+xcap = "0.0.12"
+lz4_flex = "0.11.3"
+enigo = "0.1"
+image = "0.25.1"
+lazy_static = "1.5.0"
+cpal = "0.15.3"
+ringbuf = "0.4.5"
+rand = "0.10.0"
+regex = "1.12.3"
+base64 = "0.22.1"

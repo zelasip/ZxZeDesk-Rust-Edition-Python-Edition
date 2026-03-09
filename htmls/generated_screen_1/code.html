@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>RemoteConnect - Mobile Dashboard</title>
+<!-- Tailwind CSS CDN with plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              DEFAULT: '#FF8C00',
+              glow: 'rgba(255, 140, 0, 0.4)',
+              dark: '#cc7000'
+            },
+            surface: {
+              900: '#0a0a0a',
+              800: '#121212',
+              700: '#1e1e1e',
+              600: '#2a2a2a'
+            }
+          },
+          backgroundImage: {
+            'glass-gradient': 'linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05))',
+          }
+        }
+      }
+    }
+  </script>
+<!-- Custom Styles for Glassmorphism and Effects -->
+<style data-purpose="custom-effects">
+    .glassmorphism {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .button-glow {
+      box-shadow: 0 0 20px rgba(255, 140, 0, 0.35);
+      transition: all 0.3s ease;
+    }
+    .button-glow:active {
+      transform: scale(0.98);
+      box-shadow: 0 0 10px rgba(255, 140, 0, 0.2);
+    }
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="bg-surface-900 text-gray-100 font-sans min-h-screen flex flex-col">
+<!-- BEGIN: MainHeader -->
+<header class="p-6 flex justify-between items-center" data-purpose="app-header">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 bg-brand rounded-lg flex items-center justify-center shadow-lg shadow-brand/20">
+<svg class="w-5 h-5 text-black" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path>
+</svg>
+</div>
+<h1 class="text-xl font-bold tracking-tight">Remote<span class="text-brand">Connect</span></h1>
+</div>
+<div class="w-10 h-10 rounded-full border border-white/10 overflow-hidden bg-surface-700">
+<!-- User Profile Placeholder -->
+<img alt="User Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrOjZ4KO_ZL35w9J3NI9xhqnsJU2MK_5d_9P7QwalZE4KL1_bdH4zRxON3CCARYVwJ0PiQY4UMrTMdQP5WC3na61wyj52jBScFcN0BJy5XBWXWTiOeI1mYgNE-LpkOZ6lNyTZNYQsHEg-j6mP5-om0wTvCrxpNcokaYkq7Ekt0O2hCu5b6ltdokR-w7NMNoSQx53teuxzDTmnI6po7_iLyo_FwRzBZ8kVY95RzVJkI0qobn3xpHhqRdFrR04k0on8YXBLpdT5poSE"/>
+</div>
+</header>
+<!-- END: MainHeader -->
+<main class="flex-1 px-6 pb-24 overflow-y-auto hide-scrollbar">
+<!-- BEGIN: MyConnectionSection -->
+<section class="mb-8" data-purpose="local-access-details">
+<h2 class="text-sm font-semibold text-gray-400 uppercase tracking-widest mb-4">Your Connection</h2>
+<div class="glassmorphism rounded-3xl p-6 relative overflow-hidden">
+<!-- Abstract Background Glow -->
+<div class="absolute -top-10 -right-10 w-32 h-32 bg-brand/10 blur-3xl rounded-full"></div>
+<div class="grid grid-cols-2 gap-6 relative z-10">
+<div>
+<p class="text-[10px] text-gray-400 uppercase font-bold mb-1">My ID</p>
+<p class="text-xl font-mono text-white tracking-wider">834 112 009</p>
+</div>
+<div>
+<p class="text-[10px] text-gray-400 uppercase font-bold mb-1">Password</p>
+<div class="flex items-center gap-2">
+<p class="text-xl font-mono text-white tracking-wider">A3kD</p>
+<svg class="h-4 w-4 text-gray-500" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+</div>
+<div class="col-span-2">
+<p class="text-[10px] text-gray-400 uppercase font-bold mb-1">Port / Relay</p>
+<p class="text-sm font-mono text-brand/80">bore.pub:23123</p>
+</div>
+</div>
+</div>
+</section>
+<!-- END: MyConnectionSection -->
+<!-- BEGIN: RemoteConnectionSection -->
+<section class="mb-10" data-purpose="remote-access-form">
+<h2 class="text-sm font-semibold text-gray-400 uppercase tracking-widest mb-4">Remote Access</h2>
+<div class="space-y-4">
+<!-- ID Input -->
+<div class="relative">
+<label class="absolute left-4 top-2 text-[10px] text-brand font-bold uppercase">Remote ID</label>
+<input class="w-full bg-surface-800 border-none pt-7 pb-3 px-4 rounded-2xl text-white placeholder-gray-600 focus:ring-2 focus:ring-brand/50 transition-all" placeholder="000 000 000" type="text"/>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<!-- Password Input -->
+<div class="relative">
+<label class="absolute left-4 top-2 text-[10px] text-brand font-bold uppercase">Password</label>
+<input class="w-full bg-surface-800 border-none pt-7 pb-3 px-4 rounded-2xl text-white placeholder-gray-600 focus:ring-2 focus:ring-brand/50 transition-all" placeholder="••••" type="password"/>
+</div>
+<!-- Port Input -->
+<div class="relative">
+<label class="absolute left-4 top-2 text-[10px] text-brand font-bold uppercase">Port</label>
+<input class="w-full bg-surface-800 border-none pt-7 pb-3 px-4 rounded-2xl text-white placeholder-gray-600 focus:ring-2 focus:ring-brand/50 transition-all" placeholder="22" type="text"/>
+</div>
+</div>
+<!-- Connect Button -->
+<button class="w-full py-5 bg-brand text-black font-extrabold text-lg rounded-2xl button-glow flex items-center justify-center gap-3 mt-2 shadow-2xl shadow-brand/40">
+<span>CONNECT NOW</span>
+<svg class="h-6 w-6" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M13 7l5 5m0 0l-5 5m5-5H6" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path>
+</svg>
+</button>
+</div>
+</section>
+<!-- END: RemoteConnectionSection -->
+<!-- BEGIN: RecentSessionsSection -->
+<section data-purpose="history-list">
+<div class="flex justify-between items-center mb-4">
+<h2 class="text-sm font-semibold text-gray-400 uppercase tracking-widest">Recent Sessions</h2>
+<button class="text-brand text-xs font-bold hover:underline">Clear All</button>
+</div>
+<div class="space-y-3">
+<!-- Recent Item 1 -->
+<div class="flex items-center gap-4 p-4 bg-surface-800/50 rounded-2xl border border-white/5">
+<div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500/20 to-blue-600/10 flex items-center justify-center text-blue-400 border border-blue-500/20">
+<svg class="h-6 w-6" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<div class="flex-1">
+<h3 class="font-bold text-sm">Workstation-Office-01</h3>
+<p class="text-xs text-gray-500">ID: 942 331 884 • 2h ago</p>
+</div>
+<button class="p-2 text-gray-400">
+<svg class="h-5 w-5" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</button>
+</div>
+<!-- Recent Item 2 -->
+<div class="flex items-center gap-4 p-4 bg-surface-800/50 rounded-2xl border border-white/5">
+<div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500/20 to-purple-600/10 flex items-center justify-center text-purple-400 border border-purple-500/20">
+<svg class="h-6 w-6" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<div class="flex-1">
+<h3 class="font-bold text-sm">MBP-Home-Network</h3>
+<p class="text-xs text-gray-500">ID: 112 884 559 • Yesterday</p>
+</div>
+<button class="p-2 text-gray-400">
+<svg class="h-5 w-5" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</button>
+</div>
+</div>
+</section>
+<!-- END: RecentSessionsSection -->
+</main>
+<!-- BEGIN: BottomNavigation -->
+<nav class="fixed bottom-0 left-0 right-0 bg-surface-800/80 backdrop-blur-xl border-t border-white/5 px-8 py-4 flex justify-between items-center z-50" data-purpose="tab-bar">
+<button class="flex flex-col items-center gap-1 text-brand">
+<svg class="h-6 w-6" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+<path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path>
+</svg>
+<span class="text-[10px] font-bold">Home</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-gray-500 hover:text-gray-300">
+<svg class="h-6 w-6" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span class="text-[10px] font-bold">Groups</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-gray-500 hover:text-gray-300">
+<svg class="h-6 w-6" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span class="text-[10px] font-bold">Settings</span>
+</button>
+</nav>
+<!-- END: BottomNavigation -->
+</body></html>
